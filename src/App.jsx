@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import styles from "./App.module.css";
 
 function Square({ value, onSquareClick }) {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className={styles.square} onClick={onSquareClick}>
       {value}
     </button>
   );
@@ -32,18 +33,18 @@ function Board({ xIsNext, squares, onPlay }) {
 
   return (
     <>
-      <div className="status">{status}</div>
-      <div className="board-row">
+      <div className={styles.status}>{status}</div>
+      <div className={styles.boardRow}>
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
         <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
       </div>
-      <div className="board-row">
+      <div className={styles.boardRow}>
         <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
         <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
         <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
       </div>
-      <div className="board-row">
+      <div className={styles.boardRow}>
         <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
         <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
         <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
@@ -68,27 +69,28 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
-  const moves = history.map((squares, move) => {
-    let description;
+  const moves = history.map((squares, move)  => {
+    let description ;
     if (move > 0) {
-      description = 'Go to move #' + move;
+      description  = 'Go to move #' + move;
     } else {
       description = 'Go to game start';
     }
+
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button className={styles.buttonStart} onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
   });
 
   return (
-    <div className="game">
-      <div className="game-board">
+    <div className={styles.game}>
+      <div className={styles.gameBoard}>
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
+      <div className={styles.gameInfo}>
+        <ol className={styles.moves}>{moves}</ol>
       </div>
     </div>
   );
